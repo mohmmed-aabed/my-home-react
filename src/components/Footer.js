@@ -3,7 +3,15 @@ import styled from 'styled-components';
 
 // ------------------ COMPONENT ------------------
 const Footer = () => {
-  return <h4>footer</h4>;
+  return (
+    <Wrapper>
+      <h5>
+        &copy; {new Date().getFullYear()} <span>MyHome</span>
+      </h5>
+
+      <h5>All rights reserved</h5>
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------

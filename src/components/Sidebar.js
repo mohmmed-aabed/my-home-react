@@ -1,5 +1,5 @@
 import React from 'react';
-// import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { useProductsContext } from '../context/products_context';
 import { FaTimes } from 'react-icons/fa';
@@ -10,7 +10,38 @@ import { useUserContext } from '../context/user_context';
 
 // ------------------ COMPONENT ------------------
 const Sidebar = () => {
-  return <h4>sidebar</h4>;
+  const { isSidebarOpen, closeSidebar } = useProductsContext();
+
+  return (
+    <SidebarContainer>
+      <aside className={isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}>
+        <div className='sidebar-header'>
+          <img src={logo} alt='logo' className='logo' />
+          <button type='button' className='close-btn' onClick={closeSidebar}>
+            <FaTimes />
+          </button>
+        </div>
+        <ul className='links'>
+          {links.map((link) => {
+            const { id, text, url } = link;
+            return (
+              <li key={id}>
+                <Link to={url} onClick={closeSidebar}>
+                  {text}
+                </Link>
+              </li>
+            );
+          })}
+          <li>
+            <Link to='/checkout' onClick={closeSidebar}>
+              checkout
+            </Link>
+          </li>
+        </ul>
+        <CartButtons />
+      </aside>
+    </SidebarContainer>
+  );
 };
 
 // ------------------ STYLE ------------------
@@ -20,7 +51,8 @@ const SidebarContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.5rem;
+    padding: 0 2rem;
+    height: 6rem;
   }
   .close-btn {
     font-size: 2rem;
@@ -34,10 +66,13 @@ const SidebarContainer = styled.div`
   }
   .close-btn:hover {
     color: var(--clr-red-light);
+    transform: scale(1.05);
+  }
+  .close-btn:focus {
+    outline: none;
   }
   .logo {
-    justify-self: center;
-    height: 45px;
+    height: 5rem;
   }
   .links {
     margin-bottom: 2rem;
@@ -47,14 +82,14 @@ const SidebarContainer = styled.div`
     text-align: left;
     font-size: 1rem;
     text-transform: capitalize;
-    padding: 1rem 1.5rem;
+    padding: 1rem 2rem;
     color: var(--clr-grey-3);
     transition: var(--transition);
     letter-spacing: var(--spacing);
   }
   .links a:hover {
-    padding: 1rem 1.5rem;
-    padding-left: 2rem;
+    padding: 1rem 2rem;
+    padding-left: 2.5rem;
     background: var(--clr-grey-10);
     color: var(--clr-grey-2);
   }

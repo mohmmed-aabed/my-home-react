@@ -8,7 +8,22 @@ import { useUserContext } from '../context/user_context';
 
 // ------------------ COMPONENT ------------------
 const CartButtons = () => {
-  return <h4>cart buttons </h4>;
+  const { closeSidebar } = useProductsContext();
+
+  return (
+    <Wrapper className='cart-btn-wrapper'>
+      <Link to='/cart' className='cart-btn' onClick={closeSidebar}>
+        Cart
+        <span className='cart-container'>
+          <FaShoppingCart />
+          <span className='cart-value'>12</span>
+        </span>
+      </Link>
+      <button type='btn' className='auth-btn' onClick={closeSidebar}>
+        Login <FaUserPlus />
+      </button>
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------
@@ -23,8 +38,11 @@ const Wrapper = styled.div`
     letter-spacing: var(--spacing);
     color: var(--clr-grey-1);
     display: flex;
-
     align-items: center;
+    transition: var(--transition);
+  }
+  .cart-btn:hover {
+    color: var(--clr-primary-5);
   }
   .cart-container {
     display: flex;
@@ -59,9 +77,16 @@ const Wrapper = styled.div`
     cursor: pointer;
     color: var(--clr-grey-1);
     letter-spacing: var(--spacing);
+    transition: var(--transition);
     svg {
       margin-left: 5px;
     }
+  }
+  .auth-btn:hover {
+    color: var(--clr-primary-5);
+  }
+  .auth-btn:focus {
+    outline: none;
   }
 `;
 

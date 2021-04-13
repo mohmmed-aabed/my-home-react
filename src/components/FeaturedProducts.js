@@ -8,7 +8,33 @@ import Product from './Product';
 
 // ------------------ COMPONENT ------------------
 const FeaturedProducts = () => {
-  return <h4>featured products</h4>;
+  const {
+    productsLoading: loading,
+    productsError: error,
+    featuredProducts: products,
+  } = useProductsContext();
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
+
+  return (
+    <Wrapper className='section'>
+      <div className='title'>
+        <h2>featured products</h2>
+        <div className='underline'></div>
+      </div>
+      <div className='section-center featured'>
+        {products.map((product) => {
+          return <Product key={product.id} {...product} />;
+        })}
+      </div>
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------

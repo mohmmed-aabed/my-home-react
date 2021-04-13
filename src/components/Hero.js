@@ -1,12 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-// import heroBcg from '../assets/hero-bcg.jpeg';
-// import heroBcg2 from '../assets/hero-bcg-2.jpeg';
+import hero from '../assets/hero.jpg';
 
 // ------------------ COMPONENT ------------------
 const Hero = () => {
-  return <h4>hero</h4>;
+  return (
+    <Wrapper className='section-center'>
+      <article className='content'>
+        <h1>
+          design your <br />
+          confort zone
+        </h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
+          suscipit laudantium dolores reprehenderit placeat assumenda! Sint
+          dolorum quae minima animi sed iste numquam? Animi consequuntur, totam
+          aut asperiores doloremque explicabo!
+        </p>
+        <Link to='./products' className='btn'>
+          shop now
+        </Link>
+      </article>
+      <article className='img-container'>
+        <img src={hero} alt='hero' className='main-img' />
+      </article>
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------
@@ -24,10 +44,13 @@ const Wrapper = styled.section`
     color: var(--clr-grey-5);
     font-size: 1rem;
   }
+  h1 {
+    line-height: 1.25;
+  }
   @media (min-width: 992px) {
-    height: calc(100vh - 5rem);
+    height: calc(100vh - 6rem);
     grid-template-columns: 1fr 1fr;
-    gap: 8rem;
+    gap: 6rem;
     h1 {
       margin-bottom: 2rem;
     }
@@ -44,29 +67,11 @@ const Wrapper = styled.section`
     }
     .main-img {
       width: 100%;
-      height: 550px;
+      height: 500px;
       position: relative;
       border-radius: var(--radius);
       display: block;
       object-fit: cover;
-    }
-    .accent-img {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 250px;
-      transform: translateX(-50%);
-      border-radius: var(--radius);
-    }
-    .img-container::before {
-      content: '';
-      position: absolute;
-      width: 10%;
-      height: 80%;
-      background: var(--clr-primary-9);
-      bottom: 0%;
-      left: -8%;
-      border-radius: var(--radius);
     }
   }
 `;

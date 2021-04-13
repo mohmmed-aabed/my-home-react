@@ -4,7 +4,36 @@ import { services } from '../utils/constants';
 
 // ------------------ COMPONENT ------------------
 const Services = () => {
-  return <h4>services </h4>;
+  return (
+    <Wrapper>
+      <div className='section-center'>
+        <article className='header'>
+          <h3>
+            custom furniture <br />
+            built only for you
+          </h3>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque,
+            eaque, reprehenderit perspiciatis quae minus culpa dolorum vitae,
+            quidem laborum nisi qui! Iusto id quisquam dolore fuga dolorem?
+            Sequi, suscipit placeat!
+          </p>
+        </article>
+        <div className='services-center'>
+          {services.map((service) => {
+            const { id, icon, title, text } = service;
+            return (
+              <article key={id} className='service'>
+                <span className='icon'>{icon}</span>
+                <h4>{title}</h4>
+                <p>{text}</p>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------
@@ -12,11 +41,10 @@ const Wrapper = styled.section`
   h3,
   h4 {
     color: var(--clr-primary-1);
+    line-height: 1.1;
   }
   padding: 5rem 0;
-
   background: var(--clr-primary-10);
-
   .header h3 {
     margin-bottom: 2rem;
   }

@@ -3,7 +3,35 @@ import styled from 'styled-components';
 
 // ------------------ COMPONENT ------------------
 const Contact = () => {
-  return <h4>contact section</h4>;
+  return (
+    <Wrapper>
+      <div className='section-center'>
+        <h3>Join our newsletter and get 20% off</h3>
+        <div className='content'>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
+            asperiores quibusdam placeat. Quis, sunt quia. Est aliquid omnis
+            quos debitis!
+          </p>
+          <form
+            className='contact-form'
+            action='https://formspree.io/f/xdoyoqor'
+            method='POST'
+          >
+            <input
+              type='email'
+              className='form-input'
+              placeholder='enter email'
+              name='_replyto'
+            />
+            <button type='submit' className='submit-btn'>
+              subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------
@@ -35,6 +63,9 @@ const Wrapper = styled.section`
     border-top-left-radius: var(--radius);
     border-bottom-left-radius: var(--radius);
   }
+  .form-input:focus {
+    outline: none;
+  }
   .submit-btn {
     border-top-right-radius: var(--radius);
     border-bottom-right-radius: var(--radius);
@@ -53,6 +84,9 @@ const Wrapper = styled.section`
   }
   .submit-btn:hover {
     color: var(--clr-white);
+  }
+  .submit-btn:focus {
+    outline: none;
   }
   @media (min-width: 992px) {
     .content {

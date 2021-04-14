@@ -6,8 +6,57 @@ import { useCartContext } from '../context/cart_context';
 import AmountButtons from './AmountButtons';
 
 // ------------------ COMPONENT ------------------
-const AddToCart = () => {
-  return <h4>addToCart </h4>;
+const AddToCart = ({ id, stock, colors = [] }) => {
+  const [mainColor, setMainColor] = useState(colors[0]);
+  const [amount, setAmount] = useState(1);
+
+  const increase = () => {
+    if (amount < stock) {
+      setAmount((prevAmount) => prevAmount + 1);
+    }
+  };
+
+  const decrease = () => {
+    if (amount > 1) {
+      setAmount((prevAmount) => prevAmount - 1);
+    }
+  };
+
+  return (
+    <Wrapper>
+      <div className='colors'>
+        <span> colors : </span>
+        <div>
+          {colors.map((color, index) => {
+            return (
+              <button
+                key={index}
+                className={`${
+                  mainColor === color ? 'color-btn active' : 'color-btn'
+                }`}
+                style={{ background: color }}
+                onClick={() => {
+                  setMainColor(color);
+                }}
+              >
+                {mainColor === color ? <FaCheck /> : null}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className='btn-container'>
+        <AmountButtons
+          amount={amount}
+          increase={increase}
+          decrease={decrease}
+        />
+        <Link to='/cart' className='btn'>
+          add to cart
+        </Link>
+      </div>
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------
@@ -25,6 +74,9 @@ const Wrapper = styled.section`
     div {
       display: flex;
     }
+  }
+  button:focus {
+    outline: none;
   }
   .color-btn {
     display: inline-block;

@@ -2,10 +2,54 @@ import React from 'react';
 import { useFilterContext } from '../context/filter_context';
 import { BsFillGridFill, BsList } from 'react-icons/bs';
 import styled from 'styled-components';
+import products_reducer from '../reducers/products_reducer';
 
 // ------------------ COMPONENT ------------------
 const Sort = () => {
-  return <h4>sort </h4>;
+  const {
+    filteredProducts: products,
+    gridView,
+    setGridView,
+    setListView,
+    sort,
+    updateSort,
+  } = useFilterContext();
+  return (
+    <Wrapper>
+      <div className='btn-container'>
+        <button
+          type='button'
+          className={gridView ? 'active' : ''}
+          onClick={setGridView}
+        >
+          <BsFillGridFill />
+        </button>
+        <button
+          type='button'
+          className={!gridView ? 'active' : ''}
+          onClick={setListView}
+        >
+          <BsList />
+        </button>
+      </div>
+      <p>{products.length} products found</p>
+      <form>
+        <label htmlFor='sort'>sort by</label>
+        <select
+          name='sort'
+          id='sort'
+          className='sort-input'
+          value={sort}
+          onChange={updateSort}
+        >
+          <option value='price-lowest'>price (lowest)</option>
+          <option value='price-highest'>price (highest)</option>
+          <option value='name-a'>name (a-z)</option>
+          <option value='name-z'>name (z-a)</option>
+        </select>
+      </form>
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------
@@ -24,7 +68,7 @@ const Wrapper = styled.section`
     }
     label {
       display: inline-block;
-      margin-right: 0.5rem;
+      margin-right: 1rem;
     }
   }
   @media (min-width: 768px) {
@@ -57,6 +101,9 @@ const Wrapper = styled.section`
       background: var(--clr-black);
       color: var(--clr-white);
     }
+    button:focus {
+      outline: none;
+    }
   }
   .sort-input {
     border-color: transparent;
@@ -67,6 +114,9 @@ const Wrapper = styled.section`
   label {
     font-size: 1rem;
     text-transform: capitalize;
+  }
+  select:focus {
+    outline: none;
   }
 `;
 

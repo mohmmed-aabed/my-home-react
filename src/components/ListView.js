@@ -4,8 +4,27 @@ import { formatPrice } from '../utils/helpers';
 import { Link } from 'react-router-dom';
 
 // ------------------ COMPONENT ------------------
-const ListView = () => {
-  return <h4>list view</h4>;
+const ListView = ({ products }) => {
+  return (
+    <Wrapper>
+      {products.map((product) => {
+        const { id, image, name, price, description } = product;
+        return (
+          <article key={id}>
+            <img src={image} alt={name} />
+            <div>
+              <h4>{name}</h4>
+              <h5 className='price'>{formatPrice(price)}</h5>
+              <p>{description.substring(0, 160)}...</p>
+              <Link className='btn' to={`/products/${id}`}>
+                Details
+              </Link>
+            </div>
+          </article>
+        );
+      })}
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------
@@ -33,7 +52,7 @@ const Wrapper = styled.section`
     margin-bottom: 1rem;
   }
   .btn {
-    font-size: 0.5rem;
+    font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
   }
   @media (min-width: 992px) {

@@ -3,8 +3,16 @@ import styled from 'styled-components';
 import Product from './Product';
 
 // ------------------ COMPONENT ------------------
-const GridView = () => {
-  return <h4>Grid View</h4>;
+const GridView = ({ products }) => {
+  return (
+    <Wrapper>
+      <div className='products-container'>
+        {products.map((product) => {
+          return <Product key={product.id} {...product} />;
+        })}
+      </div>
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------

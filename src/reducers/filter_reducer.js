@@ -11,10 +11,13 @@ import {
 
 const filter_reducer = (state, action) => {
   if (action.type === LOAD_PRODUCTS) {
+    const prices = action.payload.map((product) => product.price);
+    const maxPrice = Math.max(...prices);
     return {
       ...state,
       allProducts: [...action.payload],
       filteredProducts: [...action.payload],
+      filters: { ...state.filters, maxPrice, price: maxPrice },
     };
   }
 
@@ -50,6 +53,31 @@ const filter_reducer = (state, action) => {
       });
     }
     return { ...state, filteredProducts: sortedProducts };
+  }
+
+  if (action.type === UPDATE_FILTERS) {
+    const { name, value } = action.payload;
+    return { ...state, filters: { ...state.filters, [name]: value } };
+  }
+
+  if (action.type === FILTER_PRODUCTS) {
+    console.log('filtering');
+    return state;
+  }
+
+  if (action.type === CLEAR_FILTERS) {
+    return {
+      ...state,
+      filters: {
+        ...state.filters,
+        text: '',
+        company: 'all',
+        category: 'all',
+        color: 'all',
+        price: state.filters.maxPrice,
+        shipping: false,
+      },
+    };
   }
 
   return state;

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 // ------------------ COMPONENT ------------------
 const CartTotals = () => {
+  const { myUser, loginWithRedirect } = useUserContext();
   const { totalAmount, shippingFee } = useCartContext();
 
   return (
@@ -24,9 +25,15 @@ const CartTotals = () => {
             order total : <span>{formatPrice(totalAmount + shippingFee)}</span>
           </h4>
         </article>
-        <Link to='/checkout' className='btn'>
-          proceed to checkout
-        </Link>
+        {myUser ? (
+          <Link to='/checkout' className='btn'>
+            proceed to checkout
+          </Link>
+        ) : (
+          <button className='btn' onClick={loginWithRedirect}>
+            login
+          </button>
+        )}
       </div>
     </Wrapper>
   );
@@ -63,6 +70,9 @@ const Wrapper = styled.section`
     text-align: center;
     font-weight: 700;
     margin-top: 1.5rem;
+  }
+  button:focus {
+    outline: none;
   }
 `;
 

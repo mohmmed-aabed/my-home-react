@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useCartContext } from '../context/cart_context';
 import { Link } from 'react-router-dom';
 import { CartContent, PageHero } from '../components';
-import { CardCvcElement } from '@stripe/react-stripe-js';
+// import { CardCvcElement } from '@stripe/react-stripe-js';
 
 // ------------------ PAGE ------------------
 const CartPage = () => {

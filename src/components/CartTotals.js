@@ -7,7 +7,29 @@ import { Link } from 'react-router-dom';
 
 // ------------------ COMPONENT ------------------
 const CartTotals = () => {
-  return <h4>cart totals</h4>;
+  const { totalAmount, shippingFee } = useCartContext();
+
+  return (
+    <Wrapper>
+      <div>
+        <article>
+          <h5>
+            subtotal : <span>{formatPrice(totalAmount)}</span>
+          </h5>
+          <p>
+            shipping fee : <span>{formatPrice(shippingFee)}</span>
+          </p>
+          <hr />
+          <h4>
+            order total : <span>{formatPrice(totalAmount + shippingFee)}</span>
+          </h4>
+        </article>
+        <Link to='/checkout' className='btn'>
+          proceed to checkout
+        </Link>
+      </div>
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------
@@ -40,6 +62,7 @@ const Wrapper = styled.section`
     margin-top: 1rem;
     text-align: center;
     font-weight: 700;
+    margin-top: 1.5rem;
   }
 `;
 

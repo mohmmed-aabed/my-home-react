@@ -6,8 +6,39 @@ import { FaTrash } from 'react-icons/fa';
 import { useCartContext } from '../context/cart_context';
 
 // ------------------ COMPONENT ------------------
-const CartItem = () => {
-  return <h4>cart item</h4>;
+const CartItem = ({ id, image, name, color, price, amount }) => {
+  const { removeItem, toggleAmount } = useCartContext();
+  const increase = () => {
+    toggleAmount(id, 'inc');
+  };
+  const decrease = () => {
+    toggleAmount(id, 'dec');
+  };
+
+  return (
+    <Wrapper>
+      <div className='title'>
+        <img src={image} alt={name} />
+        <div>
+          <h5 className='name'>{name}</h5>
+          <p className='color'>
+            color : <span style={{ background: color }}></span>
+          </p>
+          <h5 className='price-small'>{formatPrice(price)}</h5>
+        </div>
+      </div>
+      <div className='price'>{formatPrice(price)}</div>
+      <AmountButtons amount={amount} increase={increase} decrease={decrease} />
+      <h5 className='subtotal'>{formatPrice(price * amount)}</h5>
+      <button
+        type='button'
+        className='remove-btn'
+        onClick={() => removeItem(id)}
+      >
+        <FaTrash />
+      </button>
+    </Wrapper>
+  );
 };
 
 // ------------------ STYLE ------------------
@@ -19,7 +50,7 @@ const Wrapper = styled.article`
     display: none;
   }
   display: grid;
-  grid-template-columns: 200px auto auto;
+  grid-template-columns: 175px auto auto;
   grid-template-rows: 75px;
   gap: 3rem 1rem;
   justify-items: center;
@@ -28,7 +59,7 @@ const Wrapper = styled.article`
   .title {
     grid-template-rows: 75px;
     display: grid;
-    grid-template-columns: 75px 125px;
+    grid-template-columns: 75px 100px;
     align-items: center;
     text-align: left;
     gap: 1rem;
@@ -90,6 +121,9 @@ const Wrapper = styled.article`
     border-radius: var(--radius);
     font-size: 0.75rem;
     cursor: pointer;
+  }
+  button:focus {
+    outline: none;
   }
   @media (min-width: 776px) {
     .subtotal {
